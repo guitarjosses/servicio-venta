@@ -16,10 +16,7 @@ import lombok.Data;
 @Entity
 @Table(name = "cliente", schema = "movilpos")
 public class Cliente implements Serializable{
-
-    /**
-     *
-     */
+    
     private static final long serialVersionUID = 959612097235675985L;
 
     @Id
