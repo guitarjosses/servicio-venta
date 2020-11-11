@@ -19,18 +19,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "venta", schema = "movilpos")
-public class Venta implements Serializable {
+@Table(name = "cotizacion", schema = "movilpos")
+public class Cotizacion implements Serializable {
 
     private static final long serialVersionUID = -3632876529395882815L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ventaSequenceGenerator")
-    @SequenceGenerator(name = "ventaSequenceGenerator", sequenceName = "venta_id_seq", allocationSize = 1, schema = "movilpos")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cotizacionSequenceGenerator")
+    @SequenceGenerator(name = "cotizacionSequenceGenerator", sequenceName = "cotizacion_id_seq", allocationSize = 1, schema = "movilpos")
     private Long id;
 
-    @Column(name = "numero_venta")
-    String numeroVenta;
+    @Column(name = "numero_cotizacion")
+    String numeroCotizacion;
 
     Timestamp fecha;
 

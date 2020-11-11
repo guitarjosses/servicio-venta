@@ -25,9 +25,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/ventas")
 public class VentaRest {
@@ -55,7 +53,7 @@ public class VentaRest {
         return  ResponseEntity.ok(venta);
     }
 
-    @PostMapping
+    @PostMapping("/cliente/{clienteId}")
     public ResponseEntity<Venta> crearVenta(@RequestBody Venta venta, BindingResult result) {
         if (result.hasErrors()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));

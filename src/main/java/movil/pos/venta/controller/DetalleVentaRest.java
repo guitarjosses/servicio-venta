@@ -25,9 +25,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RestController
 @RequestMapping("/detalle/ventas")
 
@@ -42,7 +40,7 @@ public class DetalleVentaRest {
         detallesVenta = detalleVentaService.buscarTodasLosDetalleVenta();
             if (detallesVenta.isEmpty()) 
                 return ResponseEntity.noContent().build();
-          
+
         return  ResponseEntity.ok(detallesVenta);
     }
 
