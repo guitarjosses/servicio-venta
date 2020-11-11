@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import movil.pos.venta.ResourceNotFoundException;
 import movil.pos.venta.repository.ImpresoraRepository;
 import movil.pos.venta.repository.entity.Impresora;
 

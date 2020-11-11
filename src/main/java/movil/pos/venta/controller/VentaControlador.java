@@ -3,10 +3,12 @@ package movil.pos.venta.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +54,24 @@ public class VentaControlador {
         }).orElseThrow(() -> new ResourceNotFoundException("Vendedor ","id",vendedorId));
         
         return ventaRepositorio.save(venta);
+    }
+
+    @PutMapping("actualizar/estado/venta/{id}")
+    public ResponseEntity<Venta> actualizarImpresora(@PathVariable(value = "id") Long ventaId,
+                                            @Validated @RequestBody Venta estadoVenta) {
+
+                                                Venta venta = ventaRepositorio.findById(ventaId).orElse(null);
+
+        if(venta == null){
+            return  ResponseEntity.notFound().build();
+        }
+
+               
+                venta.setEstado(estadoVenta.getEstado());
+
+
+                Venta ventaActualizada = ventaRepositorio.save(venta);
+        return ResponseEntity.ok(ventaActualizada);
     }
     
 }

@@ -23,11 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import lombok.extern.slf4j.Slf4j;
 import movil.pos.venta.repository.entity.Funcionario;
 import movil.pos.venta.service.FuncionarioService;
 
-@Slf4j
 @RestController
 @RequestMapping("/funcionarios")
 public class FuncionarioRest {

@@ -22,17 +22,17 @@ import lombok.Data;
 @Table(name = "venta", schema = "movilpos")
 public class Venta implements Serializable {
 
-    private static final long serialVersionUID = -3632876529395882815L;
+private static final long serialVersionUID = -3632876529395882815L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ventaSequenceGenerator")
-    @SequenceGenerator(name = "ventaSequenceGenerator", sequenceName = "venta_id_seq", allocationSize = 1, schema = "movilpos")
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ventaSequenceGenerator")
+@SequenceGenerator(name = "ventaSequenceGenerator", sequenceName = "venta_id_seq", allocationSize = 1, schema = "movilpos")
+private Long id;
 
-    @Column(name = "numero_venta")
-    String numeroVenta;
+@Column(name = "numero_venta")
+String numeroVenta;
 
-    Timestamp fecha;
+Timestamp fecha;
 
 @ManyToOne
 @JoinColumn(name = "cliente_id")
@@ -44,28 +44,31 @@ private Cliente cliente;
 private Funcionario funcionario;
 
 
-    @Column(name = "tipo_documento")
-    int tipoDocumento;
-    
-    @Column(name = "tipo_pago")
-    int tipoPago;
+@Column(name = "tipo_documento")
+int tipoDocumento;
 
-    @Column(name = "semana_dia_pago_id")
-    int semanaDiaPagoId;
+@Column(name = "tipo_pago")
+int tipoPago;
 
-    @Column(name = "quincena_dia1_pago_id")
-    int quincenaDia1PagoId;
+@Column(name = "semana_dia_pago_id")
+int semanaDiaPagoId;
 
-    @Column(name = "quincena_dia2_pago_id")
-    int quincenaDia2PagoId;
+@Column(name = "quincena_dia1_pago_id")
+int quincenaDia1PagoId;
 
-    @Column(name = "mes_dia_pago")
-    Date mesDiaPago;
+@Column(name = "quincena_dia2_pago_id")
+int quincenaDia2PagoId;
 
-    BigDecimal subtotal;
-    BigDecimal impuesto;
-    BigDecimal descuento;
-    BigDecimal total;
+@Column(name = "mes_dia_pago")
+Date mesDiaPago;
 
-    boolean activa;
+BigDecimal subtotal;
+BigDecimal impuesto;
+BigDecimal descuento;
+BigDecimal total;
+
+String estado;
+
+boolean activa;
+
 }
