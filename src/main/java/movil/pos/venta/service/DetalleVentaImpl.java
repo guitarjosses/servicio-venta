@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import movil.pos.venta.repository.DetalleVentaRepository;
+import movil.pos.venta.repository.VentaRepository;
 import movil.pos.venta.repository.entity.DetalleVenta;
+import movil.pos.venta.repository.entity.Venta;
 
 @Service
 public class DetalleVentaImpl implements DetalleVentaService {
 
     @Autowired
     DetalleVentaRepository detalleVentaRepository;
+
+    @Autowired
+    VentaRepository ventaRepository;
 
     @Override
     public List<DetalleVenta> buscarTodasLosDetalleVenta() {
@@ -69,6 +74,19 @@ public class DetalleVentaImpl implements DetalleVentaService {
     
         return  detalleVentaRepository.findById(id).orElse(null);
 
+    }
+
+    @Override
+    public List<DetalleVenta> obtenerDetalleVentaByVentaId(Long idVenta) {
+        
+        Venta venta = ventaRepository.findById(idVenta).orElse(null);
+
+        if(venta == null){
+            return null;
+        }
+
+        return detalleVentaRepository.findByVentaId(idVenta);
+        
     }
     
 }

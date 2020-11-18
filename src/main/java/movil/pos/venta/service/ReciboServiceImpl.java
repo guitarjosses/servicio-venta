@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import movil.pos.venta.repository.ReciboRepository;
 import movil.pos.venta.repository.entity.Recibo;
 
@@ -42,10 +41,9 @@ public class ReciboServiceImpl implements ReciboService {
         }
 
 reciboDB.setNumeroRecibo(recibo.getNumeroRecibo());
-reciboDB.setVentaId(recibo.getVentaId());
+reciboDB.setVenta(recibo.getVenta());
 reciboDB.setFecha(recibo.getFecha());
-reciboDB.setClienteId(recibo.getClienteId());
-reciboDB.setVendedorId(recibo.getVendedorId());
+reciboDB.setCliente(recibo.getCliente());
 reciboDB.setMetodoPago(recibo.getMetodoPago());
 reciboDB.setMontoEfectivo(recibo.getMontoEfectivo());
 reciboDB.setMontoTarjeta(recibo.getMontoTarjeta());
@@ -79,6 +77,12 @@ reciboDB.setActivo(recibo.isActivo());
     public Recibo obtenerRecibo(Long id) {
         
         return  reciboRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Recibo> obtenerRecibosPorVentaId(Long ventaId) {
+        
+        return reciboRepository.findByVentaId(ventaId);
     }
     
 }

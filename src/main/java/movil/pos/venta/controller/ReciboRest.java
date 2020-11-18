@@ -1,7 +1,11 @@
 package movil.pos.venta.controller;
 
+import movil.pos.venta.repository.entity.Cliente;
 import movil.pos.venta.repository.entity.Recibo;
+import movil.pos.venta.repository.entity.Venta;
+import movil.pos.venta.service.ClienteService;
 import movil.pos.venta.service.ReciboService;
+import movil.pos.venta.service.VentaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +37,40 @@ public class ReciboRest {
 
     @Autowired
     ReciboService reciboService;
+
+    @Autowired
+    ClienteService clienteService;
+
+    @Autowired
+    VentaService ventaService;
+
+    @GetMapping(value = "total/recibos/por/venta/{id}")
+    public ResponseEntity<Recibo> obteneTotalRecibosPorVentaId(@PathVariable("id") long id) {
+        BigDecimal total = BigDecimal.ZERO;
+        List<Recibo> recibos =  new ArrayList<>();
+        Recibo recib = new Recibo();
+        recib.setTotal(total);
+        recibos = reciboService.obtenerRecibosPorVentaId(id);
+            if (!recibos.isEmpty()) 
+                {
+                    for(Recibo recibo:recibos){
+                        total = total.add(recibo.getTotal());
+                    }
+                    recib.setTotal(total);
+                }
+
+        return  ResponseEntity.ok(recib);
+    }
+
+    @GetMapping(value = "por/venta/{id}")
+    public ResponseEntity<List<Recibo>> obteneRecibosPorVentaId(@PathVariable("id") long id) {
+        List<Recibo> recibos =  new ArrayList<>();
+        recibos = reciboService.obtenerRecibosPorVentaId(id);
+            if (recibos.isEmpty()) 
+                return ResponseEntity.noContent().build();
+
+        return  ResponseEntity.ok(recibos);
+    }
 
     @GetMapping
     public ResponseEntity<List<Recibo>> obtenerTodosLosRecibos() {
@@ -53,11 +92,20 @@ public class ReciboRest {
         return  ResponseEntity.ok(recibo);
     }
 
-    @PostMapping
-    public ResponseEntity<Recibo> crearRecibo(@RequestBody Recibo recibo, BindingResult result) {
+    @PostMapping("cliente/{clienteId}/venta/{ventaId}/recibo")
+    public ResponseEntity<Recibo> crearRecibo(@PathVariable(value = "clienteId") Long clienteId,
+    @PathVariable(value = "ventaId") Long ventaId,@RequestBody Recibo recibo, BindingResult result) {
         if (result.hasErrors()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
         }
+
+        Cliente cliente = clienteService.getCustomer(clienteId);
+
+        recibo.setCliente(cliente);
+
+        Venta venta = ventaService.obtenerVenta(ventaId);
+
+        recibo.setVenta(venta);
   
         Recibo reciboDB = reciboService.crearRecibo(recibo);
   

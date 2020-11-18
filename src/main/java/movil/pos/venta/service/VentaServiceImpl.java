@@ -1,5 +1,6 @@
 package movil.pos.venta.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,31 +14,31 @@ public class VentaServiceImpl implements VentaService {
 
     @Autowired
     VentaRepository ventaRepository;
-    
+
     @Override
     public List<Venta> buscarTodasLasVentas() {
-        
+
         return ventaRepository.findAll();
     }
 
     @Override
     public Venta crearVenta(Venta venta) {
-        
+
         Venta ventaDB = ventaRepository.findByNumeroVenta(venta.getNumeroVenta());
-        if (ventaDB != null){
-            return  ventaDB;
+        if (ventaDB != null) {
+            return ventaDB;
         }
 
-        ventaDB = ventaRepository.save (venta);
+        ventaDB = ventaRepository.save(venta);
         return ventaDB;
     }
 
     @Override
     public Venta actualizarVenta(Venta venta) {
-        
+
         Venta ventaDB = obtenerVenta(venta.getId());
-        if (ventaDB == null){
-            return  null;
+        if (ventaDB == null) {
+            return null;
         }
 
         ventaDB.setNumeroVenta(venta.getNumeroVenta());
@@ -56,7 +57,7 @@ public class VentaServiceImpl implements VentaService {
         ventaDB.setTotal(venta.getTotal());
         ventaDB.setActiva(venta.isActiva());
 
-        return  ventaRepository.save(ventaDB);
+        return ventaRepository.save(ventaDB);
 
     }
 
@@ -64,8 +65,8 @@ public class VentaServiceImpl implements VentaService {
     public Venta borrarVenta(Venta venta) {
 
         Venta ventaDB = obtenerVenta(venta.getId());
-        if (ventaDB ==null){
-            return  null;
+        if (ventaDB == null) {
+            return null;
         }
 
         return ventaRepository.save(venta);
@@ -74,9 +75,17 @@ public class VentaServiceImpl implements VentaService {
 
     @Override
     public Venta obtenerVenta(Long id) {
-        
-        return  ventaRepository.findById(id).orElse(null);
+
+        return ventaRepository.findById(id).orElse(null);
 
     }
+
+    @Override
+    public List<Venta> obtenerVentasPorRangoFecha(Timestamp fechaInicial, Timestamp fechaFinal) {
+        
+        return ventaRepository.findByFechaBetween(fechaInicial, fechaFinal);
+    }
+
+
     
 }

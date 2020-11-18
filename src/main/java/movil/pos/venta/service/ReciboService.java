@@ -12,5 +12,6 @@ public interface ReciboService {
     public Recibo actualizarRecibo(Recibo recibo);
     public Recibo borrarRecibo(Recibo recibo);
     public Recibo obtenerRecibo(Long id);
+    public List<Recibo> obtenerRecibosPorVentaId(Long ventaId);
     
 }

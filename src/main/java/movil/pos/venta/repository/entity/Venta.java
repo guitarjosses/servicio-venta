@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
 
@@ -66,6 +67,9 @@ BigDecimal subtotal;
 BigDecimal impuesto;
 BigDecimal descuento;
 BigDecimal total;
+
+@Transient
+BigDecimal saldo;
 
 String estado;
 

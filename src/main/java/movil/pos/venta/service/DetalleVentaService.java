@@ -12,5 +12,6 @@ public interface DetalleVentaService {
     public DetalleVenta actualizarDetalleVenta(DetalleVenta detalleVenta);
     public DetalleVenta borrarDetalleVenta(DetalleVenta detalleVenta);
     public DetalleVenta obtenerDetalleVenta(Long id);
+    public List<DetalleVenta> obtenerDetalleVentaByVentaId(Long idVenta);
     
 }

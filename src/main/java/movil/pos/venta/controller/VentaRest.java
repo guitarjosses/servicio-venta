@@ -1,6 +1,8 @@
 package movil.pos.venta.controller;
 
+import movil.pos.venta.repository.entity.Recibo;
 import movil.pos.venta.repository.entity.Venta;
+import movil.pos.venta.service.ReciboService;
 import movil.pos.venta.service.VentaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,14 +37,68 @@ public class VentaRest {
     @Autowired
     VentaService ventaService;
 
+    @Autowired
+    ReciboService reciboService;
+
+    @GetMapping("/por/rango/fecha1/{fechaInicial}/fecha2/{fechaFinal}")
+    public ResponseEntity<List<Venta>> obtenerVentasPorRangoFecha(@PathVariable(value = "fechaInicial") Timestamp fechaInicial,
+    @PathVariable(value = "fechaFinal") Timestamp fechaFinal){
+
+        List<Venta> ventas =  new ArrayList<>();
+        List<Venta> ventas1 =  new ArrayList<>();
+
+        ventas = ventaService.obtenerVentasPorRangoFecha(fechaInicial, fechaFinal);
+
+        if (ventas.isEmpty()) 
+                return ResponseEntity.noContent().build();
+
+                        for(Venta venta:ventas){
+            BigDecimal total = BigDecimal.ZERO;
+            List<Recibo> recibos =  new ArrayList<>();
+            venta.setSaldo(venta.getTotal().subtract(total));
+
+            recibos = reciboService.obtenerRecibosPorVentaId(venta.getId());
+            if (!recibos.isEmpty()) 
+                {
+                    for(Recibo recibo:recibos){
+                        total = total.add(recibo.getTotal());
+                    }
+                    System.out.println("entra total " + venta.getTotal().subtract(total));
+                    venta.setSaldo(venta.getTotal().subtract(total));
+                }
+        ventas1.add(venta);
+        }
+          
+        return  ResponseEntity.ok(ventas1);
+
+    }
+
     @GetMapping
     public ResponseEntity<List<Venta>> obtenerTodosLasVentas() {
         List<Venta> ventas =  new ArrayList<>();
+        List<Venta> ventas1 =  new ArrayList<>();
         ventas = ventaService.buscarTodasLasVentas();
             if (ventas.isEmpty()) 
                 return ResponseEntity.noContent().build();
+        
+        for(Venta venta:ventas){
+            BigDecimal total = BigDecimal.ZERO;
+            List<Recibo> recibos =  new ArrayList<>();
+            venta.setSaldo(venta.getTotal().subtract(total));
+
+            recibos = reciboService.obtenerRecibosPorVentaId(venta.getId());
+            if (!recibos.isEmpty()) 
+                {
+                    for(Recibo recibo:recibos){
+                        total = total.add(recibo.getTotal());
+                    }
+                    System.out.println("entra total " + venta.getTotal().subtract(total));
+                    venta.setSaldo(venta.getTotal().subtract(total));
+                }
+        ventas1.add(venta);
+        }
           
-        return  ResponseEntity.ok(ventas);
+        return  ResponseEntity.ok(ventas1);
     }
 
     @GetMapping(value = "/{id}")

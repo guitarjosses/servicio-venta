@@ -34,6 +34,16 @@ public class DetalleVentaRest {
     @Autowired
     DetalleVentaService detalleVentaService;
 
+    @GetMapping(value = "por/venta/{id}")
+    public ResponseEntity<List<DetalleVenta>> obtenerDetalleVentaPorVentaId(@PathVariable("id") long id) {
+        List<DetalleVenta> detallesVenta =  new ArrayList<>();
+        detallesVenta = detalleVentaService.obtenerDetalleVentaByVentaId(id);
+            if (detallesVenta.isEmpty()) 
+                return ResponseEntity.noContent().build();
+
+        return  ResponseEntity.ok(detallesVenta);
+    }
+
     @GetMapping
     public ResponseEntity<List<DetalleVenta>> obtenerTodosLosDetallesVenta() {
         List<DetalleVenta> detallesVenta =  new ArrayList<>();

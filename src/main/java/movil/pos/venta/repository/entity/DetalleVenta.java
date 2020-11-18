@@ -32,7 +32,7 @@ public class DetalleVenta implements Serializable{
     private Long productoId;
 
     BigDecimal precio;
-    BigDecimal cantidad;
+    int cantidad;
     BigDecimal subtotal;
     BigDecimal impuesto;
     BigDecimal descuento;

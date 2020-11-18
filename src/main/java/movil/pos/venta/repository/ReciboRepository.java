@@ -9,5 +9,6 @@ public interface ReciboRepository extends JpaRepository<Recibo, Long>{
     
     public Recibo findByNumeroRecibo(String numeroRecibo);
     public List<Recibo> findByClienteId(Long clienteId);
+    public List<Recibo> findByVentaId(Long ventaId);
     
 }

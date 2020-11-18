@@ -2,6 +2,7 @@ package movil.pos.venta.repository.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,16 +32,15 @@ public class Recibo implements Serializable {
     @Column(name = "numero_recibo")
     private String numeroRecibo;
 
-    @Column(name = "venta_id")
-    private Long ventaId;
+    @ManyToOne
+    @JoinColumn(name = "venta_id")
+    private Venta venta;
 
-    LocalDateTime fecha;
+    Timestamp fecha;
 
-    @Column(name = "cliente_id")
-    private Long clienteId;
-
-    @Column(name = "vendedor_id")
-    private Long vendedorId;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     @Column(name = "metodo_pago")
     private int metodoPago;
@@ -61,7 +63,7 @@ public class Recibo implements Serializable {
     @Column(name = "numero_cheque")
     private String numeroCheque;
 
-    @Column(name = "referenciaTransferencia")
+    @Column(name = "referencia_transferencia")
     private String referenciaTransferencia;
 
     private BigDecimal subtotal;
@@ -69,7 +71,7 @@ public class Recibo implements Serializable {
     private BigDecimal descuento;
     private BigDecimal total;
     private BigDecimal cambio;
-
+    private String estado;
     private boolean activo;
     
 }
