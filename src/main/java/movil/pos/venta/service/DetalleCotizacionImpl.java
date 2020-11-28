@@ -84,7 +84,7 @@ public class DetalleCotizacionImpl implements DetalleCotizacionService {
             return null;
         }
 
-        return detalleCotizacionRepository.findByVentaId(idVenta);
+        return detalleCotizacionRepository.findByCotizacionId(idCotizacion);
         
     }
     
