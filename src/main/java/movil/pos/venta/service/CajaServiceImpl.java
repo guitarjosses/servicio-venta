@@ -23,13 +23,8 @@ public class CajaServiceImpl implements CajaService {
     @Override
     public Caja crearCaja(Caja caja) {
     
-        Caja cajaDB = cajaRepository.findByCodigoCaja(caja.getCodigoCaja());
-        if (cajaDB != null){
-            return  cajaDB;
-        }
-
-        cajaDB = cajaRepository.save (caja);
-        return cajaDB;
+        caja = cajaRepository.save (caja);
+        return caja;
 
     }
 
@@ -41,7 +36,6 @@ public class CajaServiceImpl implements CajaService {
             return  null;
         }
 
-        cajaDB.setCodigoCaja(caja.getCodigoCaja());
         cajaDB.setNombreCaja(caja.getNombreCaja());
 
         return  cajaRepository.save(cajaDB);

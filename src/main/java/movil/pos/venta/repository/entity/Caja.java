@@ -24,9 +24,6 @@ public class Caja implements Serializable {
     @SequenceGenerator(name = "cajaSequenceGenerator", sequenceName = "caja_id_seq", allocationSize = 1,schema = "movilpos")
     private Long id;
 
-    @Column(name = "codigo")
-    private String codigoCaja;
-
     @Column(name = "nombre")
     private String nombreCaja;    
 }
