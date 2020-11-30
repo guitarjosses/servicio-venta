@@ -25,5 +25,20 @@ public class Sucursal implements Serializable {
     private Long id;
 
     @Column(name = "nombre")
-    private String nombreSucursal;    
+    private String nombreSucursal;
+
+    @Column(name = "telefono")
+    private String telefonoSucursal;
+
+    @Column(name = "direccion")
+    private String direccionSucursal;
+
+    @Column(name = "correo")
+    private String correoSucursal;
+
+    @Column(name = "whatsapp")
+    private String whatsappSucursal;
+
+    @Column(name = "fax")
+    private String faxSucursal;
 }
