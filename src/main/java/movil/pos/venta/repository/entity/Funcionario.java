@@ -28,7 +28,8 @@ public class Funcionario implements Serializable{
     private String usuario;
     private String contrasenia;
     private String ci;
-	
+    
+    // Agregando sucursal
     @Column(name = "sucursal_id")
     private Long sucursalId;
 
