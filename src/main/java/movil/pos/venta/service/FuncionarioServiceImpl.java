@@ -45,6 +45,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         funcionarioDB.setUsuario(funcionario.getUsuario());
         funcionarioDB.setContrasenia(funcionario.getContrasenia());
         funcionarioDB.setCi(funcionario.getCi());
+        funcionarioDB.setSucursalId(funcionario.getSucursalId());
         funcionarioDB.setCategoriaId(funcionario.getCategoriaId());
         funcionarioDB.setActivo(funcionario.isActivo());
         funcionarioDB.setCiudad(funcionario.getCiudad());
