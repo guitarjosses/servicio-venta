@@ -26,7 +26,7 @@ public class DetalleCotizacion implements Serializable{
     private Long id;
 
     @Column(name = "cotizacion_id")
-    private Long ventaId;
+    private Long cotizacionId;
 
     @Column(name = "producto_id")
     private Long productoId;
